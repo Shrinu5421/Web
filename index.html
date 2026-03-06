@@ -169,8 +169,7 @@ nav {
 
 footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 1px; border-top: 1px solid var(--border); }
 
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+/* reveal removed - using direct animation */
 .cursor-glow { position: fixed; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,195,0.04) 0%, transparent 70%); pointer-events: none; transform: translate(-50%, -50%); z-index: 0; transition: left 0.1s, top 0.1s; }
 
 @media (max-width: 900px) {
@@ -232,7 +231,7 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
 
 <section id="about" class="section">
   <div class="section-header"><span class="section-num">01</span><h2 class="section-title">About Me</h2><div class="section-line"></div></div>
-  <div class="about-grid reveal">
+  <div class="about-grid">
     <div class="about-text">
       <p>I'm a results-driven Mechanical Engineer with deep expertise in <strong>CFD, Heat Transfer, and Multiphysics simulations</strong>. My work spans from biomedical flow modeling to large-scale battery thermal management.</p>
       <p>Currently at <strong>Ansys Software</strong> as a Technical Support Engineer, I support advanced Fluids workflows and contribute to AI-assisted simulation accuracy. My research has been featured by the <strong>Government of India</strong> and major media outlets including The Hindu and India Today.</p>
@@ -264,7 +263,7 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
 
 <section id="experience" class="section">
   <div class="section-header"><span class="section-num">02</span><h2 class="section-title">Experience</h2><div class="section-line"></div></div>
-  <div class="timeline reveal">
+  <div class="timeline">
     <div class="timeline-item">
       <div class="timeline-dot"></div>
       <div class="exp-date">JUN 2024 — PRESENT</div>
@@ -307,7 +306,7 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
 
 <section id="projects" class="section">
   <div class="section-header"><span class="section-num">03</span><h2 class="section-title">Featured Projects</h2><div class="section-line"></div></div>
-  <div class="projects-grid reveal">
+  <div class="projects-grid">
     <div class="project-card"><span class="proj-icon">👁️</span><div class="proj-title">Intravitreous Drug Delivery — Human Eye</div><div class="proj-desc">Numerical investigation and experimental validation of drug transport in the vitreous humor. Achieved 99.25% faster results vs. conventional methods. Featured in The Hindu, Hindustan Times, and India Today.</div><div class="proj-tags"><span class="proj-tag">COMSOL</span><span class="proj-tag">Biomedical CFD</span><span class="proj-tag">Heat Transfer</span><span class="proj-tag">Drug Diffusion</span></div>
 <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;">
   <a href="https://onlinelibrary.wiley.com/doi/10.1002/htj.22899" target="_blank" class="proj-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Wiley Journal</a>
@@ -325,7 +324,7 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
 
 <section id="achievements" class="section">
   <div class="section-header"><span class="section-num">04</span><h2 class="section-title">Achievements</h2><div class="section-line"></div></div>
-  <div class="achievements-grid reveal">
+  <div class="achievements-grid">
     <div class="ach-card"><span class="ach-icon">🏆</span><div class="ach-title">GATE 2021</div><div class="ach-desc"><span class="ach-highlight">AIR 259</span> in Engineering Sciences — one of India's most competitive national engineering entrance examinations.</div></div>
     <div class="ach-card"><span class="ach-icon">🥇</span><div class="ach-title">NPTEL Gold Medalist</div><div class="ach-desc">Gold Medal in <span class="ach-highlight">Heat Transfer & Thermodynamics</span> from IIT/NPTEL national online program.</div></div>
     <div class="ach-card"><span class="ach-icon">📰</span><div class="ach-title">National Media Coverage</div><div class="ach-desc">Research featured in <span class="ach-highlight">The Hindu, Hindustan Times,</span> and <span class="ach-highlight">India Today</span>, highlighted by the Government of India.</div></div>
@@ -337,7 +336,7 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
 
 <section id="education" class="section">
   <div class="section-header"><span class="section-num">05</span><h2 class="section-title">Education</h2><div class="section-line"></div></div>
-  <div class="edu-grid reveal">
+  <div class="edu-grid">
     <div class="edu-card"><div class="edu-degree">Postgraduate Research</div><div class="edu-school">IIT Madras</div><div class="edu-field">Thermal & Fluid Sciences</div><div class="edu-year">Indian Institute of Technology Madras</div></div>
     <div class="edu-card"><div class="edu-degree">B.E. Mechanical Engineering</div><div class="edu-school">Undergraduate</div><div class="edu-field">Mechanical Engineering</div><div class="edu-year">Marathwada Region, Maharashtra</div></div>
     <div class="edu-card"><div class="edu-degree">Certification</div><div class="edu-school">NPTEL Gold Medal</div><div class="edu-field">Heat Transfer & Thermodynamics</div><div class="edu-year">IIT National Program</div></div>
@@ -347,7 +346,7 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
 
 <section id="publications" class="section">
   <div class="section-header"><span class="section-num">06</span><h2 class="section-title">Publications & Portfolio</h2><div class="section-line"></div></div>
-  <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+  <div class="pub-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
 
     <a href="https://drive.google.com/drive/folders/1qIXNEaBrZ6rco5xrqTei0rDsRHfG7mSS" target="_blank" class="project-card" style="text-decoration:none;display:block;">
       <span class="proj-icon">📁</span>
@@ -385,7 +384,7 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
 </section>
 <section id="contact" class="section">
   <div class="section-header"><span class="section-num">07</span><h2 class="section-title">Get In Touch</h2><div class="section-line"></div></div>
-  <div class="contact-inner reveal">
+  <div class="contact-inner">
     <p>I'm currently open to opportunities in <strong style="color:#e2eaff">R&D, Simulation Engineering, and Thermal Management</strong>. Whether you have a project, a question, or just want to connect — my inbox is always open.</p>
     <div class="contact-links">
       <a href="/cdn-cgi/l/email-protection#cab9a2b8a3a4a3bcabb9bca3a8a2bfbeaffcfaf38aada7aba3a6e4a9a5a7" class="contact-card"><span class="contact-icon">📧</span> <span class="__cf_email__" data-cfemail="d6a5bea4bfb8bfa0b7a5a0bfb4bea3a2b3e0e6ef96b1bbb7bfbaf8b5b9bb">[email&#160;protected]</span></a>
@@ -404,8 +403,22 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const glow = document.getElementById('cursorGlow');
 document.addEventListener('mousemove', e => { glow.style.left = e.clientX+'px'; glow.style.top = e.clientY+'px'; });
-const revealEls = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);} }); }, {threshold:0.1,rootMargin:'0px 0px -50px 0px'});
-revealEls.forEach(el => observer.observe(el));
+// Animate section content on scroll
+const animTargets = document.querySelectorAll('.about-grid, .timeline, .projects-grid, .achievements-grid, .edu-grid, .pub-grid, .contact-inner, .timeline-item, .project-card, .ach-card, .edu-card');
+animTargets.forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+});
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+      sectionObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
+animTargets.forEach(el => sectionObserver.observe(el));
 const counters = document.querySelectorAll('.stat-num[data-target]');
 const counterObserver = new IntersectionObserver(entries => { entries.forEach(entry => { if(entry.isIntersecting){ const el=entry.target; const target=parseInt(el.dataset.target); let current=0; const step=target/60; const timer=setInterval(()=>{ current+=step; if(current>=target){current=target;clearInterval(timer);} el.textContent=Math.f
