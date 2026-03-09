@@ -15,6 +15,26 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<script>
+function toggleMenu() {
+  var btn = document.getElementById('hamburgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  var isOpen = menu.classList.toggle('open');
+  btn.classList.toggle('is-open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function closeMenuAndGo(hash) {
+  var btn = document.getElementById('hamburgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  btn.classList.remove('is-open');
+  menu.classList.remove('open');
+  document.body.style.overflow = '';
+  if (hash) {
+    var target = document.querySelector(hash);
+    if (target) { setTimeout(function(){ target.scrollIntoView({behavior:'smooth'}); }, 50); }
+  }
+}
+</script>
 <style>
 :root {
   --bg: #060c14; --surface: #0d1b2e; --card: #0f2040;
@@ -29,51 +49,120 @@ body::before {
   background-image: linear-gradient(rgba(0,229,195,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,195,0.03) 1px, transparent 1px);
   background-size: 60px 60px; pointer-events: none; z-index: 0;
 }
+/* ── Desktop Nav ── */
 nav {
-  position: fixed; top: 0; width: 100%; backdrop-filter: blur(20px);
-  background: rgba(6,12,20,0.9); border-bottom: 1px solid var(--border);
-  z-index: 999; display: flex; align-items: center; justify-content: space-between;
+  position: fixed; top: 0; width: 100%;
+  backdrop-filter: blur(20px);
+  background: rgba(6,12,20,0.95);
+  border-bottom: 1px solid var(--border);
+  z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
   padding: 0 5%; height: 64px;
 }
-.nav-logo { font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--teal); letter-spacing: 2px; }
-.nav-links { display: flex; gap: 28px; list-style: none; }
-.nav-links a { color: var(--muted); text-decoration: none; font-size: 0.78rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s; position: relative; }
-.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--teal); transition: width 0.3s; }
+.nav-logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 1rem; color: var(--teal); letter-spacing: 2px;
+}
+.nav-links { display: flex; gap: 24px; list-style: none; }
+.nav-links a {
+  color: var(--muted); text-decoration: none;
+  font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  transition: color 0.3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 1px; background: var(--teal); transition: width 0.3s;
+}
 .nav-links a:hover { color: var(--teal); }
 .nav-links a:hover::after { width: 100%; }
-.nav-cta { background: transparent; border: 1px solid var(--teal); color: var(--teal); padding: 8px 20px; border-radius: 4px; font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; cursor: pointer; text-decoration: none; transition: background 0.3s, color 0.3s; }
+.nav-cta {
+  background: transparent; border: 1px solid var(--teal);
+  color: var(--teal); padding: 8px 20px; border-radius: 4px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 1px;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+  white-space: nowrap;
+}
 .nav-cta:hover { background: var(--teal); color: var(--bg); }
 
-/* Hamburger button */
+/* ── Hamburger Button ── */
 .nav-hamburger {
-  display: none; flex-direction: column; justify-content: center; gap: 5px;
-  background: none; border: none; cursor: pointer; padding: 6px; z-index: 1001;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 600;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
 }
 .nav-hamburger span {
-  display: block; width: 24px; height: 2px; background: var(--teal);
-  border-radius: 2px; transition: transform 0.3s, opacity 0.3s;
+  display: block;
+  width: 26px; height: 2px;
+  background: var(--teal);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+  pointer-events: none;
 }
-.nav-hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.nav-hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-.nav-hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* Mobile drawer */
+/* ── Mobile Slide-Down Menu ── */
 .mobile-menu {
-  display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
-  background: rgba(6,12,20,0.97); backdrop-filter: blur(20px);
-  z-index: 998; flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+  display: none;
+  position: fixed;
+  top: 64px; left: 0; right: 0;
+  background: rgba(6,12,20,0.99);
+  border-bottom: 2px solid var(--teal);
+  z-index: 499;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
 }
 .mobile-menu.open { display: flex; }
 .mobile-menu a {
-  color: var(--text); text-decoration: none; font-size: 1.2rem; font-weight: 600;
-  letter-spacing: 2px; text-transform: uppercase; transition: color 0.2s;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 18px 24px;
+  display: block;
+  border-bottom: 1px solid rgba(0,229,195,0.1);
+  transition: color 0.2s, background 0.2s, padding-left 0.2s;
 }
-.mobile-menu a:hover, .mobile-menu a:focus { color: var(--teal); }
+.mobile-menu a:hover,
+.mobile-menu a:focus {
+  color: var(--teal);
+  background: rgba(0,229,195,0.06);
+  padding-left: 32px;
+}
 .mobile-menu .mobile-cta {
-  border: 1px solid var(--teal); color: var(--teal); padding: 12px 32px;
-  border-radius: 4px; margin-top: 8px;
+  color: var(--teal);
+  border-bottom: none;
+  margin: 12px 16px 16px;
+  border: 1px solid var(--teal);
+  border-radius: 4px;
+  text-align: center;
+  padding: 14px 24px;
 }
-.mobile-menu .mobile-cta:hover { background: var(--teal); color: var(--bg); }
+.mobile-menu .mobile-cta:hover {
+  background: var(--teal);
+  color: var(--bg);
+  padding-left: 24px;
+}
 
 #hero { min-height: 100vh; display: flex; align-items: center; padding: 100px 8% 60px; position: relative; }
 .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,195,0.06) 0%, transparent 70%); top: 50%; right: 5%; transform: translateY(-50%); pointer-events: none; }
@@ -193,18 +282,26 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
 }
 .skip-link:focus { top: 8px; }
 
+@media (max-width: 1024px) {
+  .nav-links { gap: 16px; }
+  .nav-links a { font-size: 0.72rem; }
+}
 @media (max-width: 900px) {
+  /* Hide desktop nav items, show hamburger */
+  .nav-links { display: none !important; }
+  .nav-cta { display: none !important; }
+  .nav-hamburger { display: flex !important; }
+  /* Hero layout */
   .hero-inner { flex-direction: column-reverse; gap: 40px; text-align: center; }
   .hero-label { justify-content: center; }
   .hero-buttons, .hero-stats { justify-content: center; }
-  .nav-links { display: none; }
-  .nav-cta { display: none; }
-  .nav-hamburger { display: flex; }
+  .hero-desc { margin: 0 auto 40px; }
+  /* General layout */
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .section { padding: 70px 5%; }
-  .hero-photo { width: 200px; height: 200px; }
-  .hero-photo-ring { width: 226px; height: 226px; }
-  .hero-photo-ring2 { width: 252px; height: 252px; }
+  .hero-photo { width: 180px; height: 180px; }
+  .hero-photo-ring { width: 206px; height: 206px; }
+  .hero-photo-ring2 { width: 232px; height: 232px; }
 }
 </style>
 </head>
@@ -223,23 +320,23 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
     <li><a href="#publications">Publications</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="/cdn-cgi/l/email-protection#71021903181f1807100207181319040514434631161c10181d5f121e1c" class="nav-cta">Hire Me</a>
-  <button class="nav-hamburger" id="hamburgerBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation menu">
+  <a href="mailto:shrinivasvibhute27@gmail.com" class="nav-cta">Hire Me</a>
+  <button class="nav-hamburger" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Toggle navigation menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <!-- Mobile Navigation Drawer -->
-<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true">
-  <a href="#about" class="mobile-nav-link">About</a>
-  <a href="#experience" class="mobile-nav-link">Experience</a>
-  <a href="#projects" class="mobile-nav-link">Projects</a>
-  <a href="#achievements" class="mobile-nav-link">Awards</a>
-  <a href="#education" class="mobile-nav-link">Education</a>
-  <a href="#publications" class="mobile-nav-link">Publications</a>
-  <a href="#contact" class="mobile-nav-link">Contact</a>
-  <a href="/cdn-cgi/l/email-protection#7c0f140e1512150a1d0f0a151e140908194e4b3c1b111d1510521f1311" class="mobile-nav-link mobile-cta">Hire Me</a>
-</nav>
+<div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+  <a href="#about" class="mobile-nav-link" onclick="closeMenuAndGo('#about'); return false;">About</a>
+  <a href="#experience" class="mobile-nav-link" onclick="closeMenuAndGo('#experience'); return false;">Experience</a>
+  <a href="#projects" class="mobile-nav-link" onclick="closeMenuAndGo('#projects'); return false;">Projects</a>
+  <a href="#achievements" class="mobile-nav-link" onclick="closeMenuAndGo('#achievements'); return false;">Awards</a>
+  <a href="#education" class="mobile-nav-link" onclick="closeMenuAndGo('#education'); return false;">Education</a>
+  <a href="#publications" class="mobile-nav-link" onclick="closeMenuAndGo('#publications'); return false;">Publications</a>
+  <a href="#contact" class="mobile-nav-link" onclick="closeMenuAndGo('#contact'); return false;">Contact</a>
+  <a href="mailto:shrinivasvibhute27@gmail.com" class="mobile-nav-link mobile-cta" onclick="closeMenuAndGo(null);">Hire Me</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -313,7 +410,7 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
         <div class="meta-row">
           <span class="meta-icon" aria-hidden="true">📧</span>
           <span class="meta-label">Email</span>
-          <span class="meta-val"><a href="/cdn-cgi/l/email-protection#ef9c879d868186998e9c99868d879a9b8addd8af88828e8683c18c8082"><span class="__cf_email__" data-cfemail="493a213b2027203f283a3f202b213c3d2c7b7e092e24282025672a2624">[email&#160;protected]</span></a></span>
+          <span class="meta-val"><a href="mailto:shrinivasvibhute27@gmail.com"><span class="__cf_email__" data-cfemail="493a213b2027203f283a3f202b213c3d2c7b7e092e24282025672a2624">[email&#160;protected]</span></a></span>
         </div>
       </div>
     </div>
@@ -504,12 +601,12 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
   <div class="contact-inner">
     <p>I'm currently open to opportunities in <strong style="color:#e2eaff">R&amp;D, Simulation Engineering, and Thermal Management</strong>. Whether you have a project, a question, or just want to connect — my inbox is always open.</p>
     <div class="contact-links">
-      <a href="/cdn-cgi/l/email-protection#b0c3d8c2d9ded9c6d1c3c6d9d2d8c5c4d58287f0d7ddd1d9dc9ed3dfdd" class="contact-card" aria-label="Send email to Shrinivas Vibhute"><span aria-hidden="true">📧</span> <span class="__cf_email__" data-cfemail="6f1c071d060106190e1c19060d071a1b0a5d582f08020e0603410c0002">[email&#160;protected]</span></a>
+      <a href="mailto:shrinivasvibhute27@gmail.com" class="contact-card" aria-label="Send email to Shrinivas Vibhute"><span aria-hidden="true">📧</span> <span class="__cf_email__" data-cfemail="6f1c071d060106190e1c19060d071a1b0a5d582f08020e0603410c0002">[email&#160;protected]</span></a>
       <a href="tel:+918390127975" class="contact-card" aria-label="Call Shrinivas Vibhute"><span aria-hidden="true">📞</span> +91-8390127975</a>
       <a href="https://www.linkedin.com/in/shrinivas-vibhute/" target="_blank" rel="noopener noreferrer" class="contact-card" aria-label="LinkedIn profile (opens in new tab)"><span aria-hidden="true">🔗</span> LinkedIn</a>
       <a href="https://drive.google.com/drive/folders/1qIXNEaBrZ6rco5xrqTei0rDsRHfG7mSS" target="_blank" rel="noopener noreferrer" class="contact-card" aria-label="Portfolio on Google Drive (opens in new tab)"><span aria-hidden="true">📁</span> Portfolio Drive</a>
     </div>
-    <a href="/cdn-cgi/l/email-protection#25564d574c4b4c534456534c474d5051401712654248444c490b464a48" class="btn-primary">Send a Message</a>
+    <a href="mailto:shrinivasvibhute27@gmail.com" class="btn-primary">Send a Message</a>
   </div>
 </section>
 
@@ -517,7 +614,7 @@ footer { text-align: center; padding: 30px; color: var(--muted); font-family: 'S
   <p>Designed &amp; Built with Precision · © 2026 Shrinivas Vibhute · CFD &amp; Thermal Specialist</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // Cursor glow
 const glow = document.getElementById('cursorGlow');
 document.addEventListener('mousemove', e => {
@@ -525,36 +622,9 @@ document.addEventListener('mousemove', e => {
   glow.style.top = e.clientY + 'px';
 });
 
-// Hamburger menu
-const hamburgerBtn = document.getElementById('hamburgerBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-
-hamburgerBtn.addEventListener('click', () => {
-  const isOpen = mobileMenu.classList.toggle('open');
-  hamburgerBtn.setAttribute('aria-expanded', isOpen);
-  mobileMenu.setAttribute('aria-hidden', !isOpen);
-  document.body.style.overflow = isOpen ? 'hidden' : '';
-});
-
-// Close mobile menu when a link is clicked
-document.querySelectorAll('.mobile-nav-link').forEach(link => {
-  link.addEventListener('click', () => {
-    mobileMenu.classList.remove('open');
-    hamburgerBtn.setAttribute('aria-expanded', 'false');
-    mobileMenu.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  });
-});
-
-// Close on Escape key
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-    mobileMenu.classList.remove('open');
-    hamburgerBtn.setAttribute('aria-expanded', 'false');
-    mobileMenu.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    hamburgerBtn.focus();
-  }
+// Close menu on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeMenuAndGo(null);
 });
 
 // Counter animation
